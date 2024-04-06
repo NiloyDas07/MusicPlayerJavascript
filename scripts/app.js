@@ -141,8 +141,16 @@ audioFile.addEventListener("timeupdate", () => {
 
   // Automatically plays next song.
   if (currTime === duration) {
-    console.log(isShuffleOn);
-    isShuffleOn ? loadRandomSong() : loadNextSong();
+    if (repeat === 2) {
+      playAudio();
+    }
+    else if (repeat === 0 && songIndex === audioStore.length - 1) {
+      playButton.classList.replace("fa-pause", "fa-play");
+      isAudioPlaying = false;
+    }
+    else {
+      isShuffleOn ? loadRandomSong() : loadNextSong();
+    }
   }
 
   let minutes = Math.floor(currTime / 60);
@@ -172,7 +180,42 @@ shuffleButton.addEventListener("click", () => {
     isShuffleOn = true;
     shuffleButton.classList.add("active-icon");
   }
-  console.log(isShuffleOn);
+  repeatButton.classList.remove("bi", "bi-repeat-1", "active-icon");
+    repeatButton.classList.add("fa-solid", "fa-repeat");
+    repeat = 0;
 });
+
+// Adding functionality to repeat button.
+let repeat = 0;
+const repeatButton = document.querySelector(".fa-repeat");
+repeatButton.addEventListener("click", () => {
+  if (repeat === 0) {
+    repeatButton.classList.add("active-icon");
+    repeat = 1;
+  } else if (repeat === 1) {
+    repeatButton.classList.replace("fa-solid", "bi");
+    repeatButton.classList.replace("fa-repeat", "bi-repeat-1");
+    repeat = 2;
+  } else {
+    repeatButton.classList.remove("bi", "bi-repeat-1", "active-icon");
+    repeatButton.classList.add("fa-solid", "fa-repeat");
+    repeat = 0;
+  }
+  isShuffleOn = false;
+  shuffleButton.classList.remove("active-icon");
+});
+
+
+const darkModeToggle = document.querySelector('#darkmode-toggle');
+const body = document.querySelector('body');
+darkModeToggle.addEventListener('change', (e) => {
+  if (e.target.checked) {
+    body.classList.replace('light', 'dark');
+  }
+  else {
+    body.classList.replace('dark', 'light');
+  }
+})
+
 
 loadAudio(songIndex);
