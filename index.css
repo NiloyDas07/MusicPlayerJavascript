@@ -190,4 +190,5 @@ label:active::after {
   height: 70%;
   width: 1px;
   border: 1px solid gray;
+  opacity: 0.5;
 }

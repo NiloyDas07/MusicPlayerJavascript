@@ -143,12 +143,10 @@ audioFile.addEventListener("timeupdate", () => {
   if (currTime === duration) {
     if (repeat === 2) {
       playAudio();
-    }
-    else if (repeat === 0 && songIndex === audioStore.length - 1) {
+    } else if (repeat === 0 && songIndex === audioStore.length - 1) {
       playButton.classList.replace("fa-pause", "fa-play");
       isAudioPlaying = false;
-    }
-    else {
+    } else {
       isShuffleOn ? loadRandomSong() : loadNextSong();
     }
   }
@@ -181,8 +179,8 @@ shuffleButton.addEventListener("click", () => {
     shuffleButton.classList.add("active-icon");
   }
   repeatButton.classList.remove("bi", "bi-repeat-1", "active-icon");
-    repeatButton.classList.add("fa-solid", "fa-repeat");
-    repeat = 0;
+  repeatButton.classList.add("fa-solid", "fa-repeat");
+  repeat = 0;
 });
 
 // Adding functionality to repeat button.
@@ -205,17 +203,14 @@ repeatButton.addEventListener("click", () => {
   shuffleButton.classList.remove("active-icon");
 });
 
-
-const darkModeToggle = document.querySelector('#darkmode-toggle');
-const body = document.querySelector('body');
-darkModeToggle.addEventListener('change', (e) => {
-  if (e.target.checked) {
-    body.classList.replace('light', 'dark');
+const darkModeToggle = document.querySelector("#darkmode-toggle");
+const body = document.querySelector("body");
+darkModeToggle.addEventListener("change", () => {
+  if (darkModeToggle.checked) {
+    body.classList.replace("light", "dark");
+  } else {
+    body.classList.replace("dark", "light");
   }
-  else {
-    body.classList.replace('dark', 'light');
-  }
-})
-
+});
 
 loadAudio(songIndex);
