@@ -6,24 +6,28 @@ const audioStore = [
     name: "Fireflies",
     artist: "Owlcity",
     image: "fireflies.jpg",
+    favorite: "#24293e",
   },
   {
     id: "Who_Says.mp3",
     name: "Who Says",
     artist: "Selena Gomez",
     image: "Who_Says.jpg",
+    favorite: "#24293e",
   },
   {
     id: "AMERSYS_VIDEO.mp3",
     name: "Piano Remix",
     artist: "Amersys",
     image: "default.jpg",
+    favorite: "#24293e",
   },
   {
     id: "I_Hired_A_Random_Guy_to_Remix_Beethoven's_5th_Symphony.mp3",
     name: "Beethoven Piano Remix",
     artist: "Unknown",
     image: "default.jpg",
+    favorite: "#24293e",
   },
 ];
 
@@ -143,7 +147,11 @@ audioFile.addEventListener("timeupdate", () => {
   if (currTime === duration) {
     if (repeat === 2) {
       playAudio();
-    } else if (repeat === 0 && songIndex === audioStore.length - 1) {
+    } else if (
+      repeat === 0 &&
+      songIndex === audioStore.length - 1 &&
+      !isShuffleOn
+    ) {
       playButton.classList.replace("fa-pause", "fa-play");
       isAudioPlaying = false;
     } else {
@@ -203,6 +211,7 @@ repeatButton.addEventListener("click", () => {
   shuffleButton.classList.remove("active-icon");
 });
 
+// Implement darkmode toggle.
 const darkModeToggle = document.querySelector("#darkmode-toggle");
 const body = document.querySelector("body");
 darkModeToggle.addEventListener("change", () => {
@@ -211,6 +220,17 @@ darkModeToggle.addEventListener("change", () => {
   } else {
     body.classList.replace("dark", "light");
   }
+});
+
+// Implement favorite button functionality.
+const favButton = document.querySelector(".fa-heart");
+favButton.addEventListener("click", () => {
+  if (audioStore[songIndex].favorite === "red") {
+    audioStore[songIndex].favorite = "#24293e";
+  } else {
+    audioStore[songIndex].favorite = "red";
+  }
+  favButton.style.color = audioStore[songIndex].favorite;
 });
 
 loadAudio(songIndex);
